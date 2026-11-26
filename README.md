@@ -1,8 +1,9 @@
 # Squad 6 — Reservas UDF / LabTech
 
-Material de análise e apresentação de Lucas Dórea Cardoso, único integrante informado, elaborado com apoio de IA. Exige revisão acadêmica e validação funcional.
+Material de análise e apresentação de Lucas Dórea Cardoso, único integrante informado, elaborado com apoio de IA. Revisão por Lucas, validação acadêmica e validação funcional estão pendentes.
 
 - [Relatório consolidado em PDF](Relatorio-Squad-6.pdf)
+- [Evidências e limitações](EVIDENCIAS.md)
 - [Modelagem UML](MODELAGEM.md) e [diagramas](diagramas/)
 - [Backlog proposto](BACKLOG.md)
 - Especificação funcional e técnica: [parte 1](ESPECIFICACAO.md) e [parte 2](ESPECIFICACAO-parte-2.md)
