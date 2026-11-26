@@ -5,20 +5,20 @@
 **Estado de verificação:** FE = indício em código frontend público; HIS = demanda presente em fonte histórica; PRO = proposta de melhoria derivada das fontes. Em todos os casos, execução/backend e aceite **não verificados**. Os critérios abaixo são alvos de aceite, não resultados de teste. Dependências são sugeridas, não afirmam a ordem real da implantação.
 
 ## Fontes
-- **[S1]** Página inicial https://labtech.dwcorp.com.br/ e https://labtech.dwcorp.com.br/organizer — observadas anteriormente em 26/11; a captura da inicial consta em `../caderno-squad6-revisado.pdf`, páginas finais. Disponibilidade do fluxo não demonstrada; consulta web nesta rodada retornou HTTP 500 e o navegador não expôs conteúdo acessível.
+- **[S1]** Página inicial https://labtech.dwcorp.com.br/ e rota https://labtech.dwcorp.com.br/organizer. A inicial foi observada anteriormente em 26/11; há uma captura em caderno de apoio externo a este pacote. Disponibilidade do fluxo não demonstrada; consulta web nesta rodada retornou HTTP 500 e o navegador não expôs conteúdo acessível.
 - **[S2]** Manifesto público https://labtech.dwcorp.com.br/assets/manifest-9c1f6854.js — identifica rotas e módulos no cliente; não prova execução.
 - **[S3]** Cliente público https://labtech.dwcorp.com.br/assets/client-DoLUnVFW.js — declara chamadas de autenticação, tipos, cursos e eventos e base `/api`; não prova respostas da API.
 - **[S4]** Contexto https://labtech.dwcorp.com.br/assets/FormContext-KFWRUNFg.js — dados de formulário, rascunho e constantes de status. Armazenamento local observado no código, não garante persistência no servidor.
 - **[S5]** Módulos de tela listados no manifesto, sobretudo [tipo](https://labtech.dwcorp.com.br/assets/event-type-selection-DKXtS1Ca.js), [logística](https://labtech.dwcorp.com.br/assets/event-logistics-DSgigHJb.js), [revisão](https://labtech.dwcorp.com.br/assets/event-confirm-data-WrwFW2h9.js), [envio](https://labtech.dwcorp.com.br/assets/event-confirmation-CbaE9ZYO.js) e [meus eventos](https://labtech.dwcorp.com.br/assets/my-events-n-fQ7PlT.js).
-- **[H1] Histórico, não implantação atual:** `../squad6-2026-09-26.pdf`, apresentação de 26/09/2026; cópia versionada na revisão histórica [6e8258bf459d0f564ad626e5bc65ce6246d7010a](https://github.com/Lucasdoreac/labtech-reservas/blob/6e8258bf459d0f564ad626e5bc65ce6246d7010a/docs/apresentacao-reservas-udf-2026-09-26.pdf). Suas afirmações de testes e nuvem são históricas e não foram reexecutadas aqui.
-- **[H2]** `../caderno-squad6-revisado.pdf`, pp. 4–13: requisitos/modelos preliminares, revisão histórica e limites de evidência. Sua hipótese de vários integrantes foi superada pela informação do usuário.
+- **[H1] Histórico, não implantação atual:** apresentação de 26/09/2026; cópia versionada na revisão histórica [6e8258bf459d0f564ad626e5bc65ce6246d7010a](https://github.com/Lucasdoreac/labtech-reservas/blob/6e8258bf459d0f564ad626e5bc65ce6246d7010a/docs/apresentacao-reservas-udf-2026-09-26.pdf). Suas afirmações de testes e nuvem são históricas e não foram reexecutadas aqui.
+- **[H2]** Caderno de apoio externo a este pacote, pp. 4–13: requisitos/modelos preliminares, revisão histórica e limites de evidência. Sua hipótese de vários integrantes foi superada pela informação do usuário.
 
 ## Itens priorizados
 
 ### B01 — Acesso do organizador
 - **Valor:** acesso identificado sem compartilhar credenciais.
 - **Prioridade/status:** P0 · FE / execução não verificada. **Fonte:** S1, S3.
-- **Aceite:** (1) informar e-mail válido solicita link sem expor token na interface; (2) e-mail inválido recebe mensagem útil; (3) link inválido/expirado não concede acesso; (4) indisponibilidade é apresentada sem indicar sucesso. Confirmar domínios aceitos e tempo de expiração com responsáveis; H1 menciona `@udf.edu.br` apenas historicamente.
+- **Aceite proposto:** (1) informar e-mail válido solicita link sem expor token na interface; (2) receber e abrir link válido permite acesso após validação; (3) e-mail inválido recebe mensagem útil; (4) link inválido/expirado não concede acesso; (5) indisponibilidade é apresentada sem indicar sucesso. Confirmar domínios aceitos e tempo de expiração com responsáveis; H1 menciona `@udf.edu.br` apenas historicamente. Envio, recebimento e acesso não foram verificados.
 - **Dependência:** conta e ambiente de teste autorizados.
 
 ### B02 — Iniciar solicitação e classificar evento
