@@ -1,114 +1,6 @@
 #!/usr/bin/env python3
-"""Gera o relatório acadêmico a partir dos Markdown e diagramas da entrega."""
-from pathlib import Path
-import re, html
-from reportlab import rl_config
-rl_config.useA85 = 1
-from reportlab.lib import colors
-from reportlab.lib.enums import TA_CENTER
-from reportlab.lib.pagesizes import A4, landscape
-from reportlab.lib.styles import ParagraphStyle
-from reportlab.lib.units import mm
-from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.pdfbase import pdfdoc
-# Fontes TrueType criam streams Flate explícitos sem ASCII85; adicioná-lo
-# antes da serialização faz ReportLab calcular comprimentos e xref corretos.
-_original_stream_format = pdfdoc.PDFStream.format
-def _ascii_stream_format(self, document):
-    if self.filters is not None and 'Filter' not in self.dictionary.dict:
-        filters = list(self.filters)
-        if not any(getattr(f, 'pdfname', '') == 'ASCII85Decode' for f in filters):
-            self.filters = [pdfdoc.PDFBase85Encode] + filters
-    return _original_stream_format(self, document)
-pdfdoc.PDFStream.format = _ascii_stream_format
-from reportlab.platypus import (BaseDocTemplate, PageTemplate, Frame, Paragraph,
-    Spacer, PageBreak, NextPageTemplate, Image, KeepTogether, HRFlowable)
-from PIL import Image as PILImage
-
-BASE = Path(__file__).resolve().parent
-OUT = BASE / 'Relatorio-Squad-6.pdf'
-pdfmetrics.registerFont(TTFont('DejaVu', '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'))
-pdfmetrics.registerFont(TTFont('DejaVu-Bold', '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'))
-pdfmetrics.registerFontFamily('DejaVu', normal='DejaVu', bold='DejaVu-Bold', italic='DejaVu', boldItalic='DejaVu-Bold')
-NAVY = colors.HexColor('#16324f'); BLUE = colors.HexColor('#28618b'); GRAY = colors.HexColor('#536273')
-styles = {
- 'body': ParagraphStyle('body', fontName='DejaVu', fontSize=9.1, leading=13.4, textColor=colors.HexColor('#1b2834'), spaceAfter=5, splitLongWords=1),
- 'bullet': ParagraphStyle('bullet', fontName='DejaVu', fontSize=9, leading=13, leftIndent=12, firstLineIndent=-9, spaceAfter=4, splitLongWords=1),
- 'table': ParagraphStyle('table', fontName='DejaVu', fontSize=8.7, leading=12.7, leftIndent=8, spaceAfter=7, splitLongWords=1),
- 'h1': ParagraphStyle('h1', fontName='DejaVu-Bold', fontSize=17, leading=22, textColor=NAVY, spaceBefore=3, spaceAfter=12, keepWithNext=1),
- 'h2': ParagraphStyle('h2', fontName='DejaVu-Bold', fontSize=12, leading=16, textColor=BLUE, spaceBefore=11, spaceAfter=6, keepWithNext=1),
- 'h3': ParagraphStyle('h3', fontName='DejaVu-Bold', fontSize=10.2, leading=14, textColor=NAVY, spaceBefore=8, spaceAfter=4, keepWithNext=1),
- 'caption': ParagraphStyle('caption', fontName='DejaVu', fontSize=8.4, leading=12, textColor=GRAY, spaceAfter=5, splitLongWords=1),
- 'cover': ParagraphStyle('cover', fontName='DejaVu-Bold', fontSize=26, leading=33, textColor=NAVY, spaceAfter=18),
- 'subtitle': ParagraphStyle('subtitle', fontName='DejaVu', fontSize=13, leading=19, textColor=BLUE, spaceAfter=14),
-}
-
-def inline(text):
-    # Preserva o destino dos links no texto extraível e também como link clicável.
-    parts = []
-    pattern = re.compile(r'\[([^\]]+)\]\(([^)]+)\)')
-    last = 0
-    def format_plain(s):
-        s = html.escape(s, quote=False)
-        s = re.sub(r'\*\*(.+?)\*\*', r'<b>\1</b>', s)
-        s = re.sub(r'`([^`]+)`', r'\1', s)
-        return s
-    for m in pattern.finditer(text):
-        parts.append(format_plain(text[last:m.start()]))
-        label, url = m.groups()
-        label, url_esc = html.escape(label), html.escape(url, quote=True)
-        if url.startswith(('https://','http://')):
-            parts.append(f'<link href="{url_esc}" color="#28618b">{label}</link> ({html.escape(url)})')
-        else:
-            parts.append(f'{label} ({html.escape(url)})')
-        last = m.end()
-    parts.append(format_plain(text[last:]))
-    return ''.join(parts)
-
-def P(text, style='body'):
-    return Paragraph(inline(text), styles[style])
-
-def md_flowables(path):
-    lines = path.read_text(encoding='utf-8').splitlines()
-    result=[]; i=0
-    while i < len(lines):
-        line=lines[i].strip()
-        if not line:
-            i+=1; continue
-        if line.startswith('|'):
-            rows=[]
-            while i < len(lines) and lines[i].strip().startswith('|'):
-                rows.append([c.strip() for c in lines[i].strip().strip('|').split('|')]); i+=1
-            if len(rows)>1 and all(re.fullmatch(r':?-{3,}:?', c.replace(' ','')) for c in rows[1]):
-                headers=rows[0]
-                for row in rows[2:]:
-                    entries=[]
-                    for j, cell in enumerate(row):
-                        if cell:
-                            label=headers[j] if j < len(headers) else f'Coluna {j+1}'
-                            entries.append('**'+label+':** '+cell)
-                    result.append(P('  ·  '.join(entries),'table'))
-            else:
-                for row in rows: result.append(P(' · '.join(row),'table'))
-            continue
-        m=re.match(r'^(#{1,3})\s+(.*)',line)
-        if m:
-            result.append(P(m.group(2), 'h'+str(len(m.group(1)))))
-        elif re.match(r'^[-*]\s+',line):
-            result.append(P('• '+re.sub(r'^[-*]\s+','',line),'bullet'))
-        elif re.match(r'^\d+\.\s+',line):
-            result.append(P(line,'bullet'))
-        else:
-            # Markdown contíguo é um parágrafo; quebras de linha são preservadas como espaço.
-            block=[line]; i+=1
-            while i<len(lines):
-                nxt=lines[i].strip()
-                if not nxt or re.match(r'^(#{1,3}\s|[-*]\s|\d+\.\s|\|)',nxt): break
-                block.append(nxt); i+=1
-            result.append(P(' '.join(block))); continue
-        i+=1
-    return result
+"""Gera o relatório acadêmico da entrega."""
+from pdf_componentes import *
 
 def page(canvas, doc):
     w,h = doc.pagesize
@@ -160,6 +52,26 @@ w,h=wide
 scale=min((w-40*mm)/iw,(h-90*mm)/ih)
 evidence_image.seek(0)
 story.extend([NextPageTemplate('wide'),PageBreak(),P('Evidência — tela pública do organizador','h1'),P('Captura real de 26/11/2026, em https://labtech.dwcorp.com.br/organizer, antes do login. Mostra campo de e-mail e botão Próximo; não comprova autenticação ou operação do sistema.','caption'), P('Imagem reduzida e convertida para JPEG; EVIDENCIAS.md registra limites e contexto.','caption'),Spacer(1,3*mm),Image(evidence_image,width=iw*scale,height=ih*scale,hAlign='CENTER')])
+
+# Capturas originais do ambiente de staging, sem dados de usuário.
+# O SHA-256 garante que todos os fragmentos reconstituem o PNG original.
+import hashlib
+staging_figures = [
+    ('staging-home-2026-11-26', '17aacf01b793492ffa8f0cac5891d365d2d3b2a60a91ff1bfeb6738552d03565', 'Evidência de staging — página inicial', 'Captura real de 26/11/2026 da página inicial do staging em https://reservas-staging-web.onrender.com/. A interface exibe a opção Organizador; não é a produção LabTech.'),
+    ('staging-organizador-2026-11-26', '6a191bad5d22c4236dc95e86eaa43046750d12b4b75d8d4b912c5ea1c1d3ff75', 'Evidência de staging — tela pública do organizador', 'Captura real de 26/11/2026 do staging em https://reservas-staging-web.onrender.com/, antes do login: campo de e-mail vazio e botão Próximo. Não é a produção LabTech.'),
+]
+for prefix, expected_sha, title, caption in staging_figures:
+    fragments = sorted((BASE/'evidencias').glob(prefix+'.parte-*.b64'))
+    if not fragments:
+        raise FileNotFoundError(f'Captura de staging ausente: {prefix}')
+    content = base64.b64decode(''.join(p.read_text(encoding='ascii') for p in fragments), validate=True)
+    if hashlib.sha256(content).hexdigest() != expected_sha:
+        raise ValueError(f'Integridade da captura de staging inválida: {prefix}')
+    image = io.BytesIO(content)
+    iw, ih = PILImage.open(image).size
+    scale = min((wide[0]-40*mm)/iw, (wide[1]-100*mm)/ih)
+    image.seek(0)
+    story.extend([NextPageTemplate('wide'), PageBreak(), P(title, 'h1'), P(caption, 'caption'), P('Sem dados de usuário. Login não comprovado; a requisição POST de login estava pendente. A captura não comprova operação autenticada, backend ou reservas.', 'caption'), Spacer(1, 3*mm), Image(image, width=iw*scale, height=ih*scale, hAlign='CENTER')])
 
 doc.build(story)
 # Comentário binário tradicional do cabeçalho PDF: normalização estritamente 1:1,
