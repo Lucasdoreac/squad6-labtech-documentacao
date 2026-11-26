@@ -1,6 +1,6 @@
 # Especificação funcional e técnica — Reservas UDF | Squad 6
 
-**Versão de trabalho:** 26/11/2026 · **Autor responsável pela revisão:** Lucas Dórea Cardoso, único integrante da Squad 6 conforme informação do próprio usuário. Documento de análise e proposta, não laudo de homologação. O backlog complementar está em [BACKLOG.md](BACKLOG.md).
+**Versão de trabalho:** 26/11/2026 · **Responsável pelo material:** Lucas Dórea Cardoso, único integrante da Squad 6 conforme informação do próprio usuário. **Revisão por Lucas e validação acadêmica:** pendentes. Documento de análise e proposta, não laudo de homologação. O backlog complementar está em [BACKLOG.md](BACKLOG.md).
 
 ## 1. Objetivo, contexto e fronteira
 
