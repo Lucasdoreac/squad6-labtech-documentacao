@@ -4,8 +4,8 @@
 
 ### UC01 — Acessar como organizador (RF01; B01)
 - **Ator:** organizador. **Pré-condições:** ambiente disponível e endereço autorizado conforme regra ainda a definir.
-- **Fluxo principal:** (1) abrir acesso do organizador; (2) informar e-mail; (3) solicitar link; (4) abrir link recebido; (5) sistema valida sessão e conduz à área permitida.
-- **Exceções:** e-mail malformado recebe mensagem; envio indisponível não indica sucesso; link inválido ou expirado não abre área protegida e oferece recomeçar. Domínio aceito e expiração pendentes de decisão.
+- **Fluxo principal proposto:** (1) abrir acesso do organizador; (2) informar e-mail; (3) solicitar link; (4) receber o e-mail com o link; (5) abrir o link; (6) sistema valida a sessão e conduz à área permitida. O recebimento, a abertura do link e a validação são hipóteses de design, não resultados observados.
+- **Exceções propostas:** e-mail malformado recebe mensagem; envio indisponível ou e-mail não recebido não indica acesso concluído; link inválido ou expirado não abre área protegida e oferece recomeçar. Domínio aceito e expiração pendentes de decisão.
 - **Pós-condição desejada:** sessão autorizada, sem necessidade de expor token. **Base:** S1, S3; S2 declara callback. Fluxo não executado.
 
 ### UC02 — Criar e retomar rascunho (RF02–RF03; B02–B04)
@@ -83,4 +83,4 @@ Esses são cenários planejados, **não resultados**. Qualquer falha gera item c
 
 Prioridades de decisão: (1) regras de acesso/domínio/expiração; (2) campos obrigatórios por tipo; (3) política de fuso, ocupação e concorrência; (4) atores, transições e aprovação direta; (5) efeito do envio sobre a disponibilidade; (6) ambiente e conta de teste; (7) retenção e segurança de dados; (8) necessidade de calendário e comprovante. Confirmar com responsáveis institucionais antes de afirmar implementação.
 
-**Uso de IA:** IA auxiliou na leitura e organização das fontes, elaboração dos requisitos, cenários e redação. O documento deve ser revisado por Lucas e, quando necessário, validado pelo responsável institucional; não atribui aprovação nem testes a ninguém. Nenhuma alteração de produção foi realizada nesta investigação.
+**Uso de IA:** IA auxiliou na leitura e organização das fontes, elaboração dos requisitos, cenários e redação. A revisão por Lucas e a validação acadêmica estão pendentes; quando necessário, cabe também validação pelo responsável institucional. Não se atribui aprovação nem testes a ninguém. Nenhuma alteração de produção foi realizada nesta investigação.
