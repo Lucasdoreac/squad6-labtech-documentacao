@@ -1,7 +1,7 @@
 # Modelagem UML — Reservas UDF / LabTech
 
 **Integrante:** Lucas Dórea Cardoso (único integrante informado).  
-**Assistência de IA:** material elaborado com apoio de inteligência artificial; a revisão e validação acadêmica cabem ao integrante.  
+**Assistência de IA:** material elaborado com apoio de inteligência artificial; revisão por Lucas e validação acadêmica ainda pendentes.  
 **Referência da aplicação:** https://labtech.dwcorp.com.br/ — consulta pública em 26/11/2026, sem login nem alteração de produção.
 
 ## Escopo e limites
@@ -10,7 +10,7 @@ Modelagem conceitual da interface de organização de eventos e reserva. O códi
 ## Diagramas finais
 1. [Casos de uso](diagramas/casos-de-uso.svg) ([fonte DOT](diagramas/casos-de-uso.dot)): interações do organizador com a interface; ações identificadas no código, sem afirmar sucesso.
 2. [Classes / domínio](diagramas/classes-dominio.svg) ([fonte DOT](diagramas/classes-dominio.dot)): abstrações a partir de campos do formulário e do cliente HTTP. Atributos não implicam colunas persistidas. Relações tracejadas são inferências; sem cardinalidades pressupostas.
-3. [Atividade](diagramas/atividade.svg) ([fonte DOT](diagramas/atividade.dot)): caminhos do pedido de acesso e fluxo proposto de evento; ordem de etapas é inferida. Falhas e modo de teste são mensagens/caminhos do cliente, não verificação operacional.
+3. [Atividade](diagramas/atividade.svg) ([fonte DOT](diagramas/atividade.dot)): pedido de acesso, recebimento e abertura do link e fluxo de evento propostos; sequência é inferida, não executada. Falhas e modo de teste são caminhos possíveis, não verificação operacional.
 
 ## Evidências e rastreabilidade
 - [Página inicial](https://labtech.dwcorp.com.br/) e [rota Organizador](https://labtech.dwcorp.com.br/organizer). Módulo [home](https://labtech.dwcorp.com.br/assets/home-BLMlH2t-.js) oferece ORGANIZADOR e verifica token/e-mail armazenados; [organizer](https://labtech.dwcorp.com.br/assets/organizer-CAguo40Y.js) contém formulário de e-mail institucional, pedido de link, mensagem de erro e mensagem de modo de teste.
