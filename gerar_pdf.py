@@ -126,7 +126,7 @@ for name, size in [('portrait',portrait),('wide',wide)]:
     frame=Frame(20*mm, 21*mm, w-40*mm, h-39*mm, leftPadding=0, rightPadding=0, topPadding=0, bottomPadding=0, id=name)
     doc.addPageTemplates(PageTemplate(id=name, frames=[frame], pagesize=size, onPage=page))
 
-story=[Spacer(1,48*mm), P('RELATÓRIO ACADÊMICO','subtitle'), Paragraph('Reservas UDF<br/>Squad 6', styles['cover']), HRFlowable(width='100%', color=BLUE, thickness=1), Spacer(1,9*mm), P('Modelagem UML, backlog de produto e especificação funcional e técnica','subtitle'), Spacer(1,15*mm), P('**Integrante:** Lucas Dórea Cardoso — único integrante da Squad 6.'), P('**Assistência de IA:** material elaborado com apoio de inteligência artificial; revisão e validação acadêmica cabem ao integrante.'), P('**Data da investigação:** 26/11/2026.'), Spacer(1,8*mm), P('**Limites da investigação:** análise de fontes públicas e documentação histórica. Não houve teste autenticado, teste de backend, criação de evento ou chamada de escrita à API. As regras e os fluxos propostos dependem de validação.'), PageBreak()]
+story=[Spacer(1,48*mm), P('RELATÓRIO ACADÊMICO','subtitle'), Paragraph('Reservas UDF<br/>Squad 6', styles['cover']), HRFlowable(width='100%', color=BLUE, thickness=1), Spacer(1,9*mm), P('Modelagem UML, backlog de produto e especificação funcional e técnica','subtitle'), Spacer(1,15*mm), P('**Integrante:** Lucas Dórea Cardoso — único integrante da Squad 6.'), P('**Assistência de IA:** material elaborado com apoio de inteligência artificial; revisão por Lucas e validação acadêmica ainda pendentes.'), P('**Data da investigação:** 26/11/2026.'), Spacer(1,8*mm), P('**Limites da investigação:** análise de fontes públicas e documentação histórica. Não houve teste autenticado, teste de backend, criação de evento ou chamada de escrita à API. As regras e os fluxos propostos dependem de validação.'), PageBreak()]
 # Inclui integralmente as três fontes finalizadas; cabeçalhos e itens de tabela tornam-se parágrafos.
 for idx, filename in enumerate(['MODELAGEM.md','BACKLOG.md','ESPECIFICACAO.md','ESPECIFICACAO-parte-2.md']):
     if idx: story.append(PageBreak())
@@ -147,6 +147,20 @@ for template,title,filename,legend,source in figures:
     maxw=w-40*mm; maxh=h-84*mm
     scale=min(maxw/iw,maxh/ih)
     story.append(Image(str(BASE/'diagramas'/filename),width=iw*scale,height=ih*scale,hAlign='CENTER'))
+
+# Captura real, anterior ao login; os fragmentos base64 recompõem exatamente o JPEG documentado.
+import base64, io
+pieces=sorted((BASE/'evidencias').glob('organizador-2026-11-26.parte-*.b64'))
+if not pieces:
+    raise FileNotFoundError('Captura de evidência ausente')
+image_bytes=base64.b64decode(''.join(x.read_text() for x in pieces), validate=True)
+evidence_image=io.BytesIO(image_bytes)
+iw,ih=PILImage.open(evidence_image).size
+w,h=wide
+scale=min((w-40*mm)/iw,(h-90*mm)/ih)
+evidence_image.seek(0)
+story.extend([NextPageTemplate('wide'),PageBreak(),P('Evidência — tela pública do organizador','h1'),P('Captura real de 26/11/2026, em https://labtech.dwcorp.com.br/organizer, antes do login. Mostra campo de e-mail e botão Próximo; não comprova autenticação ou operação do sistema.','caption'), P('Imagem reduzida e convertida para JPEG; EVIDENCIAS.md registra limites e contexto.','caption'),Spacer(1,3*mm),Image(evidence_image,width=iw*scale,height=ih*scale,hAlign='CENTER')])
+
 doc.build(story)
 # Comentário binário tradicional do cabeçalho PDF: normalização estritamente 1:1,
 # sem mexer em streams nem alterar offsets de xref.
