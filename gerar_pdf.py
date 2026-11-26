@@ -128,7 +128,7 @@ for name, size in [('portrait',portrait),('wide',wide)]:
 
 story=[Spacer(1,48*mm), P('RELATÓRIO ACADÊMICO','subtitle'), Paragraph('Reservas UDF<br/>Squad 6', styles['cover']), HRFlowable(width='100%', color=BLUE, thickness=1), Spacer(1,9*mm), P('Modelagem UML, backlog de produto e especificação funcional e técnica','subtitle'), Spacer(1,15*mm), P('**Integrante:** Lucas Dórea Cardoso — único integrante da Squad 6.'), P('**Assistência de IA:** material elaborado com apoio de inteligência artificial; revisão e validação acadêmica cabem ao integrante.'), P('**Data da investigação:** 26/11/2026.'), Spacer(1,8*mm), P('**Limites da investigação:** análise de fontes públicas e documentação histórica. Não houve teste autenticado, teste de backend, criação de evento ou chamada de escrita à API. As regras e os fluxos propostos dependem de validação.'), PageBreak()]
 # Inclui integralmente as três fontes finalizadas; cabeçalhos e itens de tabela tornam-se parágrafos.
-for idx, filename in enumerate(['MODELAGEM.md','BACKLOG.md','ESPECIFICACAO.md']):
+for idx, filename in enumerate(['MODELAGEM.md','BACKLOG.md','ESPECIFICACAO.md','ESPECIFICACAO-parte-2.md']):
     if idx: story.append(PageBreak())
     story.extend(md_flowables(BASE/filename))
 
