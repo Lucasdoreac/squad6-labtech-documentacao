@@ -4,7 +4,7 @@
 **Natureza deste arquivo:** material de estudo, síntese de fontes e proposta de critérios para revisão. **Não é homologação do sistema nem texto apresentado como trabalho autoral já validado por Lucas.**  
 **Revisão necessária:** Lucas deve conferir, adaptar e completar o material; regras de negócio e critérios institucionais precisam ser validados por responsáveis autorizados.
 
-> **Atribuição de IA.** Este guia foi produzido com assistência de IA, a partir dos artefatos fornecidos, da interface pública e do repositório candidato identificado abaixo. A IA auxiliou na leitura, organização, comparação e redação. Lucas deve verificar as fontes, ajustar as propostas e decidir o que aproveitar; nada aqui deve ser assinado ou entregue como se fosse, sem revisão, trabalho próprio já avaliado. Não foram realizadas alterações em registros do sistema nem criados pedidos ou reservas. Uma tentativa de acesso foi rejeitada pelo domínio do e-mail; não houve sessão autenticada. Este material é preliminar e foi publicado para estudo.
+> **Atribuição de IA.** Este guia foi produzido com assistência de IA, a partir dos artefatos fornecidos, da interface pública e do repositório candidato identificado abaixo. A IA auxiliou na leitura, organização, comparação e redação. Lucas deve verificar as fontes, ajustar as propostas e decidir o que aproveitar; nada aqui deve ser assinado ou entregue como se fosse, sem revisão, trabalho próprio já avaliado. Não foram realizadas alterações em registros do sistema nem criados pedidos ou reservas. Uma tentativa de acesso recebeu resposta HTTP 400 “Invalid email”; não se confirmou a causa nem houve sessão autenticada. Este material é preliminar e foi publicado para estudo.
 
 ## 1. Leitura rápida e limites
 
@@ -36,7 +36,7 @@ Cada RF abaixo é uma declaração individual. “Fonte/estado” identifica por
 ### RF02 — Solicitar e validar o acesso
 
 - **Declaração:** O organizador deve poder solicitar o meio de acesso permitido e, após validação válida, entrar somente na área autorizada.
-- **Fonte/estado:** **[code frontend]** O bundle da rota de organizador referencia envio de link, estados de erro e modo de teste; o cliente declara chamadas `/auth/send-link` e `/auth/validate`. **[candidate repository]** Há código de rotas de autenticação. A interface rejeitou um endereço fora dos domínios @udf.edu.br e @pf.udf.edu.br, informando esses dois domínios aceitos. Expiração, envio real e validação do link não foram confirmados.
+- **Fonte/estado:** **[code frontend]** O bundle da rota de organizador referencia envio de link, estados de erro e modo de teste; o cliente declara chamadas `/auth/send-link` e `/auth/validate`. **[candidate repository]** Há código de rotas de autenticação. A resposta do servidor para uma tentativa de acesso foi HTTP 400 “Invalid email”; a interface apresentou orientação sobre domínios institucionais, mas isso não prova a política efetiva ou a inexistência de exceções. Expiração, envio real e validação do link não foram confirmados.
 - **Critério de verificação:** Com conta fictícia e ambiente autorizado, testar e-mail malformado, domínio não permitido (quando a política for definida), link inválido/expirado, indisponibilidade do serviço e acesso válido. Exibir êxito apenas após resposta positiva; não expor token em tela, URL de captura ou log de teste. Validar com responsáveis a política de domínio e expiração antes de fixar valores.
 
 ### RF03 — Selecionar a classificação do evento
