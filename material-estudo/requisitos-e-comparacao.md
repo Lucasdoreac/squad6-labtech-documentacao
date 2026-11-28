@@ -4,13 +4,13 @@
 **Natureza deste arquivo:** material de estudo, síntese de fontes e proposta de critérios para revisão. **Não é homologação do sistema nem texto apresentado como trabalho autoral já validado por Lucas.**  
 **Revisão necessária:** Lucas deve conferir, adaptar e completar o material; regras de negócio e critérios institucionais precisam ser validados por responsáveis autorizados.
 
-> **Atribuição de IA.** Este guia foi produzido com assistência de IA, a partir dos artefatos fornecidos, da interface pública e do repositório candidato identificado abaixo. A IA auxiliou na leitura, organização, comparação e redação. Lucas deve verificar as fontes, ajustar as propostas e decidir o que aproveitar; nada aqui deve ser assinado ou entregue como se fosse, sem revisão, trabalho próprio já avaliado. Não foram feitas alterações no site, chamadas de escrita, login, criação de pedidos/reservas ou publicação deste material.
+> **Atribuição de IA.** Este guia foi produzido com assistência de IA, a partir dos artefatos fornecidos, da interface pública e do repositório candidato identificado abaixo. A IA auxiliou na leitura, organização, comparação e redação. Lucas deve verificar as fontes, ajustar as propostas e decidir o que aproveitar; nada aqui deve ser assinado ou entregue como se fosse, sem revisão, trabalho próprio já avaliado. Não foram realizadas alterações em registros do sistema nem criados pedidos ou reservas. Uma tentativa de acesso foi rejeitada pelo domínio do e-mail; não houve sessão autenticada. Este material é preliminar e foi publicado para estudo.
 
 ## 1. Leitura rápida e limites
 
 A aplicação pública permite observar uma página inicial com acesso **ORGANIZADOR** e a rota `/organizer` com um formulário de e-mail institucional. O manifesto e bundles públicos do frontend declaram outras telas para classificar e preencher um evento, consultar sala/data/horário, enviar o pedido e acompanhar eventos. O código candidato no GitHub contém fontes de frontend e serviços de API compatíveis com parte desses fluxos.
 
-Essas evidências **não demonstram** que autenticação, persistência, autorização, disponibilidade, envio, aprovação ou reserva funcionem no ambiente publicado. Não houve autenticação, submissão de formulário, chamada de escrita, teste de backend, concorrência ou verificação de dados. O commit candidato e os assets publicados são fontes distintas: a relação de implantação entre eles não foi comprovada. As frases abaixo são requisitos candidatos e critérios de verificação — não resultados de testes nem requisitos institucionais já aprovados.
+Essas evidências **não demonstram** que autenticação, persistência, autorização, disponibilidade, envio, aprovação ou reserva funcionem no ambiente publicado. Não houve autenticação bem-sucedida, teste de backend, concorrência ou verificação de dados. A tentativa de acesso submeteu apenas o e-mail e foi rejeitada; não foram criados ou alterados registros de reservas. O commit candidato e os assets publicados são fontes distintas: a relação de implantação entre eles não foi comprovada. As frases abaixo são requisitos candidatos e critérios de verificação — não resultados de testes nem requisitos institucionais já aprovados.
 
 **Revisão independente dos diagramas:** os casos de uso distinguem quem solicita o link de quem executaria as demais ações; sessão e autorização seguem como pré-condições não verificadas. O fluxo de atividade é apenas o ramo feliz declarado pelo cliente; o handler de submit e a reserva de três horas aparecem como código candidato, não como resposta comprovada do site. O DTO candidato `Room` contém `_id: str` e `id: int`, enquanto `Reservation.roomId` é `str`; o vínculo provável com `_id` continua hipótese, sem cardinalidades ou integridade referencial demonstradas. Nenhum ator/regra de aprovação foi inferido.
 
@@ -36,7 +36,7 @@ Cada RF abaixo é uma declaração individual. “Fonte/estado” identifica por
 ### RF02 — Solicitar e validar o acesso
 
 - **Declaração:** O organizador deve poder solicitar o meio de acesso permitido e, após validação válida, entrar somente na área autorizada.
-- **Fonte/estado:** **[code frontend]** O bundle da rota de organizador referencia envio de link, estados de erro e modo de teste; o cliente declara chamadas `/auth/send-link` e `/auth/validate`. **[candidate repository]** Há código de rotas de autenticação. O domínio aceito, expiração, envio real e validação no ambiente publicado não estão confirmados.
+- **Fonte/estado:** **[code frontend]** O bundle da rota de organizador referencia envio de link, estados de erro e modo de teste; o cliente declara chamadas `/auth/send-link` e `/auth/validate`. **[candidate repository]** Há código de rotas de autenticação. A interface rejeitou um endereço fora dos domínios @udf.edu.br e @pf.udf.edu.br, informando esses dois domínios aceitos. Expiração, envio real e validação do link não foram confirmados.
 - **Critério de verificação:** Com conta fictícia e ambiente autorizado, testar e-mail malformado, domínio não permitido (quando a política for definida), link inválido/expirado, indisponibilidade do serviço e acesso válido. Exibir êxito apenas após resposta positiva; não expor token em tela, URL de captura ou log de teste. Validar com responsáveis a política de domínio e expiração antes de fixar valores.
 
 ### RF03 — Selecionar a classificação do evento
@@ -171,7 +171,7 @@ Não reutilizar pessoas, matrículas, professora/coordenadora, datas, reuniões,
 
 ### Interface publicada e bundles do frontend
 
-Consulta pública sem autenticação registrada anteriormente: a inicial e `/organizer` foram abertas/inspecionadas. Nesta auditoria independente (2026-11-28), a página retornou HTTP 500 no fetch ao vivo e uma página vazia no navegador; os bundles citados também retornaram HTTP 500. Portanto, os achados atuais do cliente são revalidação bloqueada, não confirmação de disponibilidade presente. Não houve envio do formulário ou chamada de escrita.
+Consulta pública sem autenticação registrada anteriormente: a inicial e `/organizer` foram abertas/inspecionadas. Nesta auditoria independente (2026-11-28), a página retornou HTTP 500 no fetch ao vivo e uma página vazia no navegador; os bundles citados também retornaram HTTP 500. Portanto, os achados atuais do cliente são revalidação bloqueada, não confirmação de disponibilidade presente. Essa auditoria não enviou formulário; em tentativa posterior, um endereço foi rejeitado antes de qualquer autenticação ou operação sobre reservas.
 
 - [Página inicial — Reservas UDF](https://labtech.dwcorp.com.br/)
 - [Rota Organizador](https://labtech.dwcorp.com.br/organizer)
