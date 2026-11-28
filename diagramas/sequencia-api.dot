@@ -1,0 +1,194 @@
+digraph APISequence {
+  graph [rankdir=TB, bgcolor="#ffffff", pad="0.25", nodesep="0.65", ranksep="0.36", splines=ortho, fontname="Arial", fontsize=17, labelloc=t, label="Sequência UML · chamadas HTTP declaradas no cliente público\nLabTech UDF | origem observada: https://labtech.dwcorp.com.br | base compilada: /api → https://labtech.dwcorp.com.br/api\nCada cartão é uma chamada independente; a disposição vertical não indica ordem de fluxo ou de telas."];
+  node [fontname="Arial", fontsize=9, shape=point, width=0.04, height=0.04, color="#64748b"];
+  edge [fontname="Arial", fontsize=9, arrowsize=0.7];
+  subgraph cluster_call0 {
+    label="A · postAuthMail(email)"; labelloc=t; labeljust=l; fontname="Arial"; fontsize=11; fontcolor="#1f2937"; color="#cbd5e1"; penwidth=1; style="rounded"; margin=12;
+    call0_client [shape=box, style="rounded,filled", fillcolor="#eaf2ff", color="#51749a", fontcolor="#17365d", margin="0.12,0.08", label="Browser SPA\npublic JS client"];
+    call0_api [shape=box, style="rounded,filled", fillcolor="#eaf7ef", color="#5d896b", fontcolor="#24452d", margin="0.12,0.08", label="HTTP API\nhttps://labtech.dwcorp.com.br/api"];
+    { rank=same; call0_client; call0_api; }
+    call0_client -> call0_api [style=invis, weight=100];
+    { rank=same; call0_cr; call0_ar; }
+    { rank=same; call0_cs; call0_as; }
+    call0_cr -> call0_ar [style=invis, weight=100];
+    call0_cs -> call0_as [style=invis, weight=100];
+    call0_client -> call0_cr [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call0_api -> call0_ar [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call0_cr -> call0_ar [label="POST /auth/send-link\nJSON body: { email }", color="#315b86", fontcolor="#1e3d60", penwidth=1.3, constraint=false];
+    call0_cr -> call0_cs [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call0_ar -> call0_as [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call0_as -> call0_cs [label="202 → returns { dryRun: true }; otherwise clears session keys, saves userEmail, returns boolean(data).", color="#54705e", fontcolor="#365743", style=dashed, penwidth=1.1, constraint=false];
+  }
+  subgraph cluster_call1 {
+    label="B · validateToken(token, email)"; labelloc=t; labeljust=l; fontname="Arial"; fontsize=11; fontcolor="#1f2937"; color="#cbd5e1"; penwidth=1; style="rounded"; margin=12;
+    call1_client [shape=box, style="rounded,filled", fillcolor="#eaf2ff", color="#51749a", fontcolor="#17365d", margin="0.12,0.08", label="Browser SPA\npublic JS client"];
+    call1_api [shape=box, style="rounded,filled", fillcolor="#eaf7ef", color="#5d896b", fontcolor="#24452d", margin="0.12,0.08", label="HTTP API\nhttps://labtech.dwcorp.com.br/api"];
+    { rank=same; call1_client; call1_api; }
+    call1_client -> call1_api [style=invis, weight=100];
+    { rank=same; call1_cr; call1_ar; }
+    { rank=same; call1_cs; call1_as; }
+    call1_cr -> call1_ar [style=invis, weight=100];
+    call1_cs -> call1_as [style=invis, weight=100];
+    call1_client -> call1_cr [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call1_api -> call1_ar [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call1_cr -> call1_ar [label="GET /auth/validate\nAuthorization: Bearer <argument> · email: <argument>", color="#315b86", fontcolor="#1e3d60", penwidth=1.3, constraint=false];
+    call1_cr -> call1_cs [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call1_ar -> call1_as [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call1_as -> call1_cs [label="200 → true; 401/403 → clears session and returns false; other errors → ServiceUnavailableError.", color="#54705e", fontcolor="#365743", style=dashed, penwidth=1.1, constraint=false];
+  }
+  subgraph cluster_call2 {
+    label="C · getTypes()"; labelloc=t; labeljust=l; fontname="Arial"; fontsize=11; fontcolor="#1f2937"; color="#cbd5e1"; penwidth=1; style="rounded"; margin=12;
+    call2_client [shape=box, style="rounded,filled", fillcolor="#eaf2ff", color="#51749a", fontcolor="#17365d", margin="0.12,0.08", label="Browser SPA\npublic JS client"];
+    call2_api [shape=box, style="rounded,filled", fillcolor="#eaf7ef", color="#5d896b", fontcolor="#24452d", margin="0.12,0.08", label="HTTP API\nhttps://labtech.dwcorp.com.br/api"];
+    { rank=same; call2_client; call2_api; }
+    call2_client -> call2_api [style=invis, weight=100];
+    { rank=same; call2_cr; call2_ar; }
+    { rank=same; call2_cs; call2_as; }
+    call2_cr -> call2_ar [style=invis, weight=100];
+    call2_cs -> call2_as [style=invis, weight=100];
+    call2_client -> call2_cr [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call2_api -> call2_ar [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call2_cr -> call2_ar [label="GET /types", color="#315b86", fontcolor="#1e3d60", penwidth=1.3, constraint=false];
+    call2_cr -> call2_cs [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call2_ar -> call2_as [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call2_as -> call2_cs [label="Success → response data; caught errors → null.", color="#54705e", fontcolor="#365743", style=dashed, penwidth=1.1, constraint=false];
+  }
+  subgraph cluster_call3 {
+    label="D · searchCourses(courseName)"; labelloc=t; labeljust=l; fontname="Arial"; fontsize=11; fontcolor="#1f2937"; color="#cbd5e1"; penwidth=1; style="rounded"; margin=12;
+    call3_client [shape=box, style="rounded,filled", fillcolor="#eaf2ff", color="#51749a", fontcolor="#17365d", margin="0.12,0.08", label="Browser SPA\npublic JS client"];
+    call3_api [shape=box, style="rounded,filled", fillcolor="#eaf7ef", color="#5d896b", fontcolor="#24452d", margin="0.12,0.08", label="HTTP API\nhttps://labtech.dwcorp.com.br/api"];
+    { rank=same; call3_client; call3_api; }
+    call3_client -> call3_api [style=invis, weight=100];
+    { rank=same; call3_cr; call3_ar; }
+    { rank=same; call3_cs; call3_as; }
+    call3_cr -> call3_ar [style=invis, weight=100];
+    call3_cs -> call3_as [style=invis, weight=100];
+    call3_client -> call3_cr [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call3_api -> call3_ar [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call3_cr -> call3_ar [label="GET /courses?course_name=<courseName>", color="#315b86", fontcolor="#1e3d60", penwidth=1.3, constraint=false];
+    call3_cr -> call3_cs [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call3_ar -> call3_as [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call3_as -> call3_cs [label="Success → response data; caught errors → null.", color="#54705e", fontcolor="#365743", style=dashed, penwidth=1.1, constraint=false];
+  }
+  subgraph cluster_call4 {
+    label="E · getCourseById(courseId)"; labelloc=t; labeljust=l; fontname="Arial"; fontsize=11; fontcolor="#1f2937"; color="#cbd5e1"; penwidth=1; style="rounded"; margin=12;
+    call4_client [shape=box, style="rounded,filled", fillcolor="#eaf2ff", color="#51749a", fontcolor="#17365d", margin="0.12,0.08", label="Browser SPA\npublic JS client"];
+    call4_api [shape=box, style="rounded,filled", fillcolor="#eaf7ef", color="#5d896b", fontcolor="#24452d", margin="0.12,0.08", label="HTTP API\nhttps://labtech.dwcorp.com.br/api"];
+    { rank=same; call4_client; call4_api; }
+    call4_client -> call4_api [style=invis, weight=100];
+    { rank=same; call4_cr; call4_ar; }
+    { rank=same; call4_cs; call4_as; }
+    call4_cr -> call4_ar [style=invis, weight=100];
+    call4_cs -> call4_as [style=invis, weight=100];
+    call4_client -> call4_cr [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call4_api -> call4_ar [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call4_cr -> call4_ar [label="GET /courses?course_id=<courseId>", color="#315b86", fontcolor="#1e3d60", penwidth=1.3, constraint=false];
+    call4_cr -> call4_cs [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call4_ar -> call4_as [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call4_as -> call4_cs [label="200 → data.courses; other status/errors → null.", color="#54705e", fontcolor="#365743", style=dashed, penwidth=1.1, constraint=false];
+  }
+  subgraph cluster_call5 {
+    label="F · getUserEvents(userEmail)"; labelloc=t; labeljust=l; fontname="Arial"; fontsize=11; fontcolor="#1f2937"; color="#cbd5e1"; penwidth=1; style="rounded"; margin=12;
+    call5_client [shape=box, style="rounded,filled", fillcolor="#eaf2ff", color="#51749a", fontcolor="#17365d", margin="0.12,0.08", label="Browser SPA\npublic JS client"];
+    call5_api [shape=box, style="rounded,filled", fillcolor="#eaf7ef", color="#5d896b", fontcolor="#24452d", margin="0.12,0.08", label="HTTP API\nhttps://labtech.dwcorp.com.br/api"];
+    { rank=same; call5_client; call5_api; }
+    call5_client -> call5_api [style=invis, weight=100];
+    { rank=same; call5_cr; call5_ar; }
+    { rank=same; call5_cs; call5_as; }
+    call5_cr -> call5_ar [style=invis, weight=100];
+    call5_cs -> call5_as [style=invis, weight=100];
+    call5_client -> call5_cr [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call5_api -> call5_ar [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call5_cr -> call5_ar [label="GET /events?userEmail=<userEmail>", color="#315b86", fontcolor="#1e3d60", penwidth=1.3, constraint=false];
+    call5_cr -> call5_cs [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call5_ar -> call5_as [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call5_as -> call5_cs [label="Success → response data; 404 → { events: [] }; other errors rethrown.", color="#54705e", fontcolor="#365743", style=dashed, penwidth=1.1, constraint=false];
+  }
+  subgraph cluster_call6 {
+    label="G · submitEventData(event, status, id?)"; labelloc=t; labeljust=l; fontname="Arial"; fontsize=11; fontcolor="#1f2937"; color="#cbd5e1"; penwidth=1; style="rounded"; margin=12;
+    call6_client [shape=box, style="rounded,filled", fillcolor="#eaf2ff", color="#51749a", fontcolor="#17365d", margin="0.12,0.08", label="Browser SPA\npublic JS client"];
+    call6_api [shape=box, style="rounded,filled", fillcolor="#eaf7ef", color="#5d896b", fontcolor="#24452d", margin="0.12,0.08", label="HTTP API\nhttps://labtech.dwcorp.com.br/api"];
+    { rank=same; call6_client; call6_api; }
+    call6_client -> call6_api [style=invis, weight=100];
+    { rank=same; call6_cr; call6_ar; }
+    { rank=same; call6_cs; call6_as; }
+    call6_cr -> call6_ar [style=invis, weight=100];
+    call6_cs -> call6_as [style=invis, weight=100];
+    call6_client -> call6_cr [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call6_api -> call6_ar [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call6_cr -> call6_ar [label="[id truthy] PUT /events/{id}\n[id absent] POST /events\nJSON body: { ...event, status }", color="#315b86", fontcolor="#1e3d60", penwidth=1.3, constraint=false];
+    call6_cr -> call6_cs [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call6_ar -> call6_as [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call6_as -> call6_cs [label="Exactly one branch per call; returns data.eventId. Branches are alternatives, not sequential requests.", color="#54705e", fontcolor="#365743", style=dashed, penwidth=1.1, constraint=false];
+  }
+  subgraph cluster_call7 {
+    label="H · submitEventForApproval(eventId, body)"; labelloc=t; labeljust=l; fontname="Arial"; fontsize=11; fontcolor="#1f2937"; color="#cbd5e1"; penwidth=1; style="rounded"; margin=12;
+    call7_client [shape=box, style="rounded,filled", fillcolor="#eaf2ff", color="#51749a", fontcolor="#17365d", margin="0.12,0.08", label="Browser SPA\npublic JS client"];
+    call7_api [shape=box, style="rounded,filled", fillcolor="#eaf7ef", color="#5d896b", fontcolor="#24452d", margin="0.12,0.08", label="HTTP API\nhttps://labtech.dwcorp.com.br/api"];
+    { rank=same; call7_client; call7_api; }
+    call7_client -> call7_api [style=invis, weight=100];
+    { rank=same; call7_cr; call7_ar; }
+    { rank=same; call7_cs; call7_as; }
+    call7_cr -> call7_ar [style=invis, weight=100];
+    call7_cs -> call7_as [style=invis, weight=100];
+    call7_client -> call7_cr [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call7_api -> call7_ar [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call7_cr -> call7_ar [label="POST /events/{eventId}/submit\nJSON body: supplied argument", color="#315b86", fontcolor="#1e3d60", penwidth=1.3, constraint=false];
+    call7_cr -> call7_cs [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call7_ar -> call7_as [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call7_as -> call7_cs [label="Returns data.eventId. Shown independently; no preceding call is inferred.", color="#54705e", fontcolor="#365743", style=dashed, penwidth=1.1, constraint=false];
+  }
+  subgraph cluster_call8 {
+    label="I · getEventsReservations(eventId)"; labelloc=t; labeljust=l; fontname="Arial"; fontsize=11; fontcolor="#1f2937"; color="#cbd5e1"; penwidth=1; style="rounded"; margin=12;
+    call8_client [shape=box, style="rounded,filled", fillcolor="#eaf2ff", color="#51749a", fontcolor="#17365d", margin="0.12,0.08", label="Browser SPA\npublic JS client"];
+    call8_api [shape=box, style="rounded,filled", fillcolor="#eaf7ef", color="#5d896b", fontcolor="#24452d", margin="0.12,0.08", label="HTTP API\nhttps://labtech.dwcorp.com.br/api"];
+    { rank=same; call8_client; call8_api; }
+    call8_client -> call8_api [style=invis, weight=100];
+    { rank=same; call8_cr; call8_ar; }
+    { rank=same; call8_cs; call8_as; }
+    call8_cr -> call8_ar [style=invis, weight=100];
+    call8_cs -> call8_as [style=invis, weight=100];
+    call8_client -> call8_cr [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call8_api -> call8_ar [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call8_cr -> call8_ar [label="GET /reservations?eventId=<eventId>", color="#315b86", fontcolor="#1e3d60", penwidth=1.3, constraint=false];
+    call8_cr -> call8_cs [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call8_ar -> call8_as [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call8_as -> call8_cs [label="200 → response data; parses startAt/endAt when startAt exists; non-200/errors → null.", color="#54705e", fontcolor="#365743", style=dashed, penwidth=1.1, constraint=false];
+  }
+  subgraph cluster_call9 {
+    label="J · getAvailableSlots(date, time, page=1, page_size=10, roomName?)"; labelloc=t; labeljust=l; fontname="Arial"; fontsize=11; fontcolor="#1f2937"; color="#cbd5e1"; penwidth=1; style="rounded"; margin=12;
+    call9_client [shape=box, style="rounded,filled", fillcolor="#eaf2ff", color="#51749a", fontcolor="#17365d", margin="0.12,0.08", label="Browser SPA\npublic JS client"];
+    call9_api [shape=box, style="rounded,filled", fillcolor="#eaf7ef", color="#5d896b", fontcolor="#24452d", margin="0.12,0.08", label="HTTP API\nhttps://labtech.dwcorp.com.br/api"];
+    { rank=same; call9_client; call9_api; }
+    call9_client -> call9_api [style=invis, weight=100];
+    { rank=same; call9_cr; call9_ar; }
+    { rank=same; call9_cs; call9_as; }
+    call9_cr -> call9_ar [style=invis, weight=100];
+    call9_cs -> call9_as [style=invis, weight=100];
+    call9_client -> call9_cr [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call9_api -> call9_ar [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call9_cr -> call9_ar [label="GET /rooms/available-rooms\n?date=<date>&time=<time>&page=<page>&page_size=<page_size>\n&room_name=<roomName> only when roomName is truthy", color="#315b86", fontcolor="#1e3d60", penwidth=1.3, constraint=false];
+    call9_cr -> call9_cs [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call9_ar -> call9_as [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call9_as -> call9_cs [label="200 → response data; non-200 → false; caught errors are rethrown.", color="#54705e", fontcolor="#365743", style=dashed, penwidth=1.1, constraint=false];
+  }
+  subgraph cluster_call10 {
+    label="K · getRoomById(roomId)"; labelloc=t; labeljust=l; fontname="Arial"; fontsize=11; fontcolor="#1f2937"; color="#cbd5e1"; penwidth=1; style="rounded"; margin=12;
+    call10_client [shape=box, style="rounded,filled", fillcolor="#eaf2ff", color="#51749a", fontcolor="#17365d", margin="0.12,0.08", label="Browser SPA\npublic JS client"];
+    call10_api [shape=box, style="rounded,filled", fillcolor="#eaf7ef", color="#5d896b", fontcolor="#24452d", margin="0.12,0.08", label="HTTP API\nhttps://labtech.dwcorp.com.br/api"];
+    { rank=same; call10_client; call10_api; }
+    call10_client -> call10_api [style=invis, weight=100];
+    { rank=same; call10_cr; call10_ar; }
+    { rank=same; call10_cs; call10_as; }
+    call10_cr -> call10_ar [style=invis, weight=100];
+    call10_cs -> call10_as [style=invis, weight=100];
+    call10_client -> call10_cr [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call10_api -> call10_ar [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call10_cr -> call10_ar [label="GET /rooms?roomId=<roomId>", color="#315b86", fontcolor="#1e3d60", penwidth=1.3, constraint=false];
+    call10_cr -> call10_cs [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call10_ar -> call10_as [style=dotted, color="#94a3b8", arrowhead=none, weight=8];
+    call10_as -> call10_cs [label="200 → response data; other status/errors → null.", color="#54705e", fontcolor="#365743", style=dashed, penwidth=1.1, constraint=false];
+  }
+  note [shape=note, style=filled, fillcolor="#fffbea", color="#d6b85a", fontcolor="#433b22", fontsize=9, margin="0.12,0.08", label="Comportamento comum do request(): query params são acrescentados à URL; body não nulo é JSON e define Content-Type: application/json.\nSe localStorage tiver token: Authorization: Bearer <token> (se ausente), email=<userEmail> (se disponível e ausente) e token=<token> (se ausente).\nFontes públicas lidas: https://labtech.dwcorp.com.br/assets/client-DoLUnVFW.js e /assets/manifest-9c1f6854.js (imports de rotas).\nO bundle define fallback de desenvolvimento http://localhost:5000; não é a base compilada deste diagrama."];
+  { rank=sink; note; }
+}
