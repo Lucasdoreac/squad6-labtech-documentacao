@@ -5,13 +5,13 @@
 ## Fontes corretas
 
 - **Modelo:** [Google Docs fornecido como documento-modelo da Squad 3](https://docs.google.com/document/d/182Jc_898nU85mBViSAnfwYo3R61YOYjU/edit). Pertence à Squad 3 e a outro projeto. Serve somente como referência estrutural.
-- **Relatório-base comparado:** [Relatorio-Squad-6.pdf](https://lucasdoreac.github.io/squad6-labtech-documentacao/Relatorio-Squad-6.pdf), versão atual de **20 páginas**, indicada na branch `docs/pagina-labtech-rascunho`. A comparação não usa a cópia de 14 páginas da branch `main` nem uma URL com conta digitada incorretamente. A revisão posterior amplia o relatório com materiais de estudo, diagramas e capturas novas.
+- **Relatório-base histórico comparado:** [versão de 20 páginas fixada pelo commit 254972e](https://github.com/Lucasdoreac/squad6-labtech-documentacao/blob/254972e7d9305425c54eae74fc465052dd78a385/Relatorio-Squad-6.pdf). Não é a versão atual. Na consulta de 28/11, o [PDF publicado](https://lucasdoreac.github.io/squad6-labtech-documentacao/Relatorio-Squad-6.pdf) tinha 36 páginas, com materiais de estudo, diagramas e capturas adicionais; o link pode mudar.
 
 ## Estrutura do modelo Squad 3
 
 Capa e identificação; critérios de evidência e sumário; síntese executiva; histórico de encontros e marcos; composição da equipe e contribuições; problema, objetivo, público, escopo incluído/excluído e arquitetura; requisitos funcionais e não funcionais; UML, casos de uso e dicionário físico de dados; backlog e testes; tutorial das telas; pré-requisitos e instruções de uso; declaração de IA; reflexão/conclusões; apêndices de evidências de encontros e rastreabilidade técnica.
 
-## Estrutura do relatório atual Squad 6 (20 páginas)
+## Estrutura do relatório-base histórico Squad 6 (20 páginas)
 
 Capa, autoria/assistência e limites; modelagem UML e fontes públicas; backlog e critérios de aceite propostos; especificação funcional/técnica com requisitos, casos de uso, modelo lógico conceitual, plano de verificação e pendências; três diagramas; capturas de 26/11; complemento de apresentação e limites de revisão na p. 19; e nota técnica sobre snapshot Java histórico na p. 20. O relatório separa observação, inferência e proposta. Não houve teste autenticado, teste de backend, escrita ou criação de reserva. A nota da p. 20 não demonstra ligação ao cliente atual; nesta preparação ela é removida para evitar que modelos de código não vinculados sejam lidos como arquitetura da Squad 6. O roteiro útil da p. 19 é preservado.
 
@@ -26,4 +26,4 @@ Capa, autoria/assistência e limites; modelagem UML e fontes públicas; backlog 
 
 ## Proveniência e assistência
 
-Esta comparação foi organizada com assistência de IA com base na estrutura do Google Doc da Squad 3, no relatório atual de 20 páginas e nos arquivos de estudo fornecidos. Lucas deve verificar fontes, corrigir interpretações e decidir o que aproveitar antes de qualquer apresentação ou entrega. Nenhum dado, status, implementação ou resultado do projeto da Squad 3 foi atribuído à Squad 6.
+Esta comparação foi organizada com assistência de IA com base na estrutura informada do modelo da Squad 3, no relatório histórico de 20 páginas e nos arquivos de estudo fornecidos. O Google Doc não pôde ser lido integralmente nesta verificação; a descrição da estrutura precisa de conferência. Lucas deve verificar fontes, corrigir interpretações e decidir o que aproveitar antes de qualquer apresentação ou entrega. Nenhum dado, status, implementação ou resultado do projeto da Squad 3 foi atribuído à Squad 6.
