@@ -1,1 +1,85 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Squad 6 | Reservas UDF</title><style>body{margin:0;background:#f4f6fb;color:#17213a;font:16px/1.6 system-ui,sans-serif}header{background:#172b62;color:white;padding:3rem 1.5rem}header div,main{max-width:1000px;margin:auto}h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.1;margin:.4rem 0}main{padding:1rem 1.2rem 3rem}section{margin:1.5rem 0}.warning{background:#fff7dc;padding:1rem;border-left:4px solid #c38800}.diagram{background:white;border:1px solid #dbe1ef;border-radius:12px;padding:1rem;overflow:auto}.diagram img{display:block;width:100%;min-width:450px;height:auto}.links{display:flex;flex-wrap:wrap;gap:.7rem}.doc{background:white;border:1px solid #cbd5e9;padding:.6rem .9rem;border-radius:8px;color:#234b9b;text-decoration:none}.doc:focus,.doc:hover{text-decoration:underline}.tag{letter-spacing:.1em;text-transform:uppercase;font-size:.8rem}footer{color:#4c5a73;font-size:.9rem}</style></head><body><header><div><span class="tag">LabTech · Squad 6</span><h1>Reservas UDF</h1><p>Modelagem UML, backlog e especificação funcional e técnica.</p></div></header><main><section class="warning"><strong>Limites da análise:</strong> consulta e capturas públicas de 26/11/2026. Os diagramas são modelos conceituais, com hipóteses indicadas; não comprovam funcionamento do backend, autenticação ou criação de reservas. Revisão de Lucas e validação acadêmica pendentes.</section><section><h2>Sobre o trabalho</h2><p>O relatório reúne a análise de um fluxo proposto para organização de eventos e solicitação de espaço. O backlog e os critérios de aceite são propostas, não tarefas comprovadamente concluídas. Elaborado por Lucas Dórea Cardoso com apoio de inteligência artificial.</p></section><section><h2>Diagramas UML</h2><section class="diagram"><h3>Casos de uso</h3><p>Interações do organizador identificadas no cliente. O diagrama não comprova execução.</p><img alt="Diagrama UML: Casos de uso" src="diagramas/casos-de-uso.svg"></section><section class="diagram"><h3>Classes de domínio</h3><p>Modelo conceitual. Atributos não comprovam persistência; relações tracejadas são inferências.</p><img alt="Diagrama UML: Classes de domínio" src="diagramas/classes-dominio.svg"></section><section class="diagram"><h3>Atividade</h3><p>Síntese inferida do acesso e do fluxo de evento, não uma gravação ou validação operacional.</p><img alt="Diagrama UML: Atividade" src="diagramas/atividade.svg"></section></section><section><h2>Documentação</h2><p>O relatório é preliminar: faltam evidências dos encontros e validação funcional.</p><div class="links"><a target="_blank" rel="noopener" class="doc" href="Relatorio-Squad-6.pdf">Relatório em PDF ↗</a><a target="_blank" rel="noopener" class="doc" href="MODELAGEM.md">Modelagem e fontes ↗</a><a target="_blank" rel="noopener" class="doc" href="BACKLOG.md">Backlog proposto ↗</a><a target="_blank" rel="noopener" class="doc" href="ESPECIFICACAO.md">Especificação, parte 1 ↗</a><a target="_blank" rel="noopener" class="doc" href="ESPECIFICACAO-parte-2.md">Especificação, parte 2 ↗</a><a target="_blank" rel="noopener" class="doc" href="EVIDENCIAS.md">Evidências e limitações ↗</a></div></section><section><h2>Evidências e próximos passos</h2><p>O relatório inclui capturas reais da tela pública de organizador e do staging, que são ambientes distintos. As imagens não comprovam login, persistência ou reserva. Faltam validação funcional e evidências dos encontros.</p></section><footer>Base: relatório da branch entrega-squad6-2026, revisão 82696ba. Página de apresentação com modelos conceituais sujeitos à validação.</footer></main></body></html>
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Squad 6 | Reservas UDF</title>
+  <style>
+    :root{color-scheme:light;--ink:#17213a;--muted:#4c5a73;--paper:#f4f6fb;--card:#fff;--line:#dbe1ef;--blue:#172b62;--link:#234b9b;--warn:#fff7dc;--warn-line:#c38800;--soft:#edf2ff}
+    *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+    header{background:var(--blue);color:#fff;padding:3rem 1.5rem}header div,main{max-width:1000px;margin:auto}h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.1;margin:.4rem 0}h2{line-height:1.25}h3{margin:.2rem 0 .35rem}main{padding:1rem 1.2rem 3rem}section{margin:1.5rem 0}.tag{letter-spacing:.1em;text-transform:uppercase;font-size:.8rem}.lede{max-width:70ch}
+    .warning,.note{padding:1rem 1.1rem;border-radius:8px}.warning{background:var(--warn);border-left:4px solid var(--warn-line)}.note{background:var(--soft);border-left:4px solid #5573bd}
+    .diagram,.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1rem;overflow:hidden}.diagram{overflow:auto}.diagram img{display:block;width:100%;min-width:450px;height:auto}.links{display:flex;flex-wrap:wrap;gap:.7rem}.doc{display:inline-block;background:white;border:1px solid #cbd5e9;padding:.6rem .9rem;border-radius:8px;color:var(--link);text-decoration:none}.doc:focus,.doc:hover{text-decoration:underline}
+    .legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.75rem}.legend article{background:#fff;border:1px solid var(--line);border-radius:8px;padding:.85rem}.label{font-size:.82rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#334b78}
+    .time{font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:700}.agenda{padding-left:1.4rem}.agenda li{padding:.2rem 0}.source-list li{margin:.5rem 0}a{color:var(--link);overflow-wrap:anywhere}footer{color:var(--muted);font-size:.9rem;border-top:1px solid var(--line);padding-top:1rem;margin-top:2rem}
+    @media(max-width:600px){header{padding:2.25rem 1.1rem}main{padding:.7rem .9rem 2rem}.diagram img{min-width:420px}}
+  </style>
+</head>
+<body>
+  <header><div><span class="tag">LabTech · Squad 6</span><h1>Reservas UDF</h1><p class="lede">Modelagem UML, backlog e especificação funcional e técnica.</p></div></header>
+  <main>
+    <section class="warning"><strong>Limites da análise:</strong> consulta e capturas públicas de 26/11/2026. Os diagramas são modelos conceituais, com hipóteses indicadas; não comprovam funcionamento do backend, autenticação ou criação de reservas. Revisão de Lucas e validação acadêmica e funcional pendentes.</section>
+
+    <section><h2>Sobre o trabalho</h2>
+      <p>O relatório reúne a análise de um fluxo proposto para organização de eventos e solicitação de espaço. O backlog e os critérios de aceite são propostas, não tarefas comprovadamente concluídas. Elaborado por Lucas Dórea Cardoso com apoio de inteligência artificial; revisão do material por Lucas ainda pendente.</p>
+      <p>Lucas informa ter feito chamadas com Darlas. Não há registros dessas chamadas nesta cópia; por isso, não atribuímos datas, quantidade ou conteúdo, nem as apresentamos como evidência documentada.</p>
+      <p class="note">O relatório e esta página são materiais preliminares para revisão, não validação do sistema.</p>
+    </section>
+
+    <section><h2>Como ler os diagramas</h2>
+      <div class="legend">
+        <article><div class="label">Observação</div><p>Elemento encontrado em página pública ou código do frontend consultado. Isso demonstra o que foi visto no cliente, não que uma ação tenha sido executada ou aceita pelo servidor.</p></article>
+        <article><div class="label">Inferência</div><p>Interpretação necessária para conectar indícios, como uma relação de domínio ou ordem de etapas. Nos diagramas, relações tracejadas e sequências hipotéticas devem ser lidas como inferências.</p></article>
+        <article><div class="label">Proposta</div><p>Comportamento ou requisito desejável para o produto. É decisão de design a validar, não descrição de algo já implementado.</p></article>
+      </div>
+      <p>Leia cada diagrama perguntando: <em>qual é a fonte?</em>, <em>o que foi observado diretamente?</em> e <em>o que foi completado por interpretação ou proposto?</em> Não converta nomes de telas, atributos ou rotas em prova de persistência ou funcionamento.</p>
+    </section>
+
+    <section><h2>Diagramas UML</h2>
+      <section class="diagram"><h3>Casos de uso</h3><p>Interações do organizador identificadas no cliente. O diagrama representa possibilidades observadas no código, não comprova execução ou sucesso.</p><img alt="Diagrama UML: Casos de uso" src="diagramas/casos-de-uso.svg"></section>
+      <section class="diagram"><h3>Classes de domínio</h3><p>Modelo conceitual derivado de campos e chamadas do frontend. Atributos não comprovam persistência; relações tracejadas são inferências e não fixam cardinalidades.</p><img alt="Diagrama UML: Classes de domínio" src="diagramas/classes-dominio.svg"></section>
+      <section class="diagram"><h3>Atividade</h3><p>Síntese inferida do acesso e do fluxo de evento, não uma gravação de navegação nem uma validação operacional. Caminhos de falha e teste são possibilidades modeladas.</p><img alt="Diagrama UML: Atividade" src="diagramas/atividade.svg"></section>
+    </section>
+
+    <section><h2>Comparação cautelosa com código Java histórico</h2>
+      <p>Foi consultado o snapshot de <a target="_blank" rel="noopener" href="https://github.com/labtech-udf/labtech-api/tree/d27cd07c705b0ecd1c0aa85689e55892884618d6">labtech-udf/labtech-api, commit d27cd07c705b0ecd1c0aa85689e55892884618d6 (10/06/2024)</a>. Ele contém modelos Java distintos do modelo conceitual extraído do frontend atual:</p>
+      <ul class="source-list">
+        <li><a target="_blank" rel="noopener" href="https://github.com/labtech-udf/labtech-api/blob/d27cd07c705b0ecd1c0aa85689e55892884618d6/src/main/java/com/labtech/events/evento/Evento.java#L21-L58"><code>Evento.java</code></a> define campos como <code>name</code>, <code>description</code>, <code>dateHora</code> e <code>status</code>; a classe liga-se a <code>Arquivo</code> como foto (<code>@ManyToOne</code>) e a <code>ObjDesenSus</code> por uma associação muitos-para-muitos com tabela de junção <code>evento_ods_tb</code>.</li>
+        <li><a target="_blank" rel="noopener" href="https://github.com/labtech-udf/labtech-api/blob/d27cd07c705b0ecd1c0aa85689e55892884618d6/src/main/java/com/labtech/events/files/Arquivo.java#L14-L27"><code>Arquivo.java</code></a> define metadados como nome, tipo, URL, tamanho e chave; a relação com evento está declarada no lado <code>Evento.photo</code>.</li>
+        <li><a target="_blank" rel="noopener" href="https://github.com/labtech-udf/labtech-api/blob/d27cd07c705b0ecd1c0aa85689e55892884618d6/src/main/java/com/labtech/events/objDesenSus/ObjDesenSus.java#L17-L26"><code>ObjDesenSus.java</code></a> contém nome, descrição e status para ODS.</li>
+      </ul>
+      <p>Os controladores históricos declaram rotas diferentes das chamadas descritas no frontend analisado: por exemplo, <code>/api/public/getAllEvents</code> e <code>/api/public/evento/{id}</code>, além de rotas privadas de evento; o cliente atual declara chamadas como <code>/events</code>, <code>/events/{id}/submit</code> e <code>/reservations</code>. Veja <a target="_blank" rel="noopener" href="https://github.com/labtech-udf/labtech-api/blob/d27cd07c705b0ecd1c0aa85689e55892884618d6/src/main/java/com/labtech/events/evento/EventoResource.java#L19-L124">EventoResource.java</a>, <a target="_blank" rel="noopener" href="https://github.com/labtech-udf/labtech-api/blob/d27cd07c705b0ecd1c0aa85689e55892884618d6/src/main/java/com/labtech/events/files/ArquivoResource.java#L14-L51">ArquivoResource.java</a> e <a target="_blank" rel="noopener" href="https://github.com/labtech-udf/labtech-api/blob/d27cd07c705b0ecd1c0aa85689e55892884618d6/src/main/java/com/labtech/events/objDesenSus/ObjDesenSusResource.java#L14-L61">ObjDesenSusResource.java</a>; compare com o <a target="_blank" rel="noopener" href="https://labtech.dwcorp.com.br/assets/client-DoLUnVFW.js">cliente HTTP publicado</a>.</p>
+      <p class="note"><strong>Limite importante:</strong> este repositório e commit são uma referência histórica de 2024. A diferença entre modelos e rotas não prova que esse código seja, ou não seja, o backend atual. Não estabelece correspondência com produção, versão implantada, contrato vigente ou funcionamento; essa ligação precisa de confirmação independente.</p>
+    </section>
+
+    <section><h2>Roteiro de apresentação — 30 minutos</h2>
+      <p>Roteiro sem teste nem demonstração do MVP; a sessão apresenta análise, evidências, propostas e limites.</p>
+      <ol class="agenda">
+        <li><span class="time">00–04 min</span> — Contexto, objetivo, escopo e o que a investigação não verificou.</li>
+        <li><span class="time">04–09 min</span> — Evidências do frontend: telas, rotas e chamadas declaradas; distinguir indicação de execução.</li>
+        <li><span class="time">09–16 min</span> — Leitura dos três diagramas UML e separação entre observação, inferência e proposta.</li>
+        <li><span class="time">16–22 min</span> — Comparação com o snapshot Java de 2024: classes, relações e rotas distintas, com ressalva de que não identifica o backend atual.</li>
+        <li><span class="time">22–27 min</span> — Requisitos/backlog propostos, evidências disponíveis e limitações de validação.</li>
+        <li><span class="time">27–30 min</span> — Síntese, perguntas e pendências: revisão por Lucas, validação acadêmica e funcional, confirmação da versão/backend e documentação das chamadas informadas.</li>
+      </ol>
+    </section>
+
+    <section><h2>Documentação</h2>
+      <p>O relatório é preliminar: faltam evidências documentais dos encontros informados e validação funcional. Os documentos ligados abaixo reúnem as fontes e propostas utilizadas nesta apresentação.</p>
+      <div class="links">
+        <a target="_blank" rel="noopener" class="doc" href="Relatorio-Squad-6.pdf">Relatório em PDF ↗</a>
+        <a target="_blank" rel="noopener" class="doc" href="MODELAGEM.md">Modelagem e fontes ↗</a>
+        <a target="_blank" rel="noopener" class="doc" href="BACKLOG.md">Backlog proposto ↗</a>
+        <a target="_blank" rel="noopener" class="doc" href="ESPECIFICACAO.md">Especificação, parte 1 ↗</a>
+        <a target="_blank" rel="noopener" class="doc" href="ESPECIFICACAO-parte-2.md">Especificação, parte 2 ↗</a>
+        <a target="_blank" rel="noopener" class="doc" href="EVIDENCIAS.md">Evidências e limitações ↗</a>
+      </div>
+    </section>
+
+    <section><h2>Evidências e próximos passos</h2>
+      <p>O relatório inclui capturas reais da tela pública de organizador e do staging, que são ambientes distintos. As imagens não comprovam login, persistência ou reserva. Não há registro documental das chamadas com Darlas nesta cópia. Permanecem pendentes revisão por Lucas, validação acadêmica, validação funcional, confirmação de qual implementação corresponde ao ambiente atual e evidências documentais que possam ser acrescentadas sem inferir detalhes.</p>
+    </section>
+    <footer>Página de apresentação com modelos conceituais sujeitos à revisão e validação.</footer>
+  </main>
+</body>
+</html>
