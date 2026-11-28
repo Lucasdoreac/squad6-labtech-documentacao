@@ -1,0 +1,25 @@
+%% Estudo rastreável — casos de uso com base no cliente web publicado.
+%% Fontes: https://labtech.dwcorp.com.br/assets/client-DoLUnVFW.js
+%% https://labtech.dwcorp.com.br/assets/manifest-9c1f6854.js
+flowchart LR
+  actor[Organizador — sessão não verificada]
+  access[Pessoa solicitando acesso]
+  subgraph web[LabTech — cliente web publicado]
+    auth((Solicitar link de acesso<br/>POST /auth/send-link))
+    own((Consultar eventos próprios<br/>GET /events))
+    draft((Criar ou editar rascunho<br/>POST /events • PUT /events/:id))
+    typecourse((Escolher tipo e localizar curso<br/>catálogo • GET /courses))
+    schedule((Agendar e buscar salas<br/>GET /rooms/available-rooms))
+    submit((Confirmar e enviar evento<br/>POST /events/:id/submit))
+    branch[ class/exam → agenda direta; outros → informações → detalhes → logística → agenda ]
+  end
+  access --- auth
+  actor --- own
+  actor --- draft
+  actor --- typecourse
+  actor --- schedule
+  actor --- submit
+  schedule -. fluxo por tipo .-> branch
+  note[Sem ator aprovador; backend candidato não ligado ao deployment. Pré-condições de sessão/autorização não verificadas; POST /auth/send-link solicita acesso.] 
+  submit -. escopo / confiança .-> note
+  own -. pré-condição aberta .-> note

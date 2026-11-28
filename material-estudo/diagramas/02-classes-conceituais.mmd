@@ -1,0 +1,57 @@
+%% Conceitual, não definitivo. Tipos e campos vêm do commit candidato abaixo.
+%% https://github.com/Lucasdoreac/labtech-reservas/tree/6e8258bf459d0f564ad626e5bc65ce6246d7010a/apps/api/src
+%% DTO: https://github.com/Lucasdoreac/labtech-reservas/blob/6e8258bf459d0f564ad626e5bc65ce6246d7010a/apps/api/src/DTO/index.py
+classDiagram
+  class Event {
+    <<candidate DTO • selected fields>>
+    _id: str
+    name: str
+    organizer: dict
+    eventTypeId: str
+    graduationId: str
+    status: str
+    targetPublic: str
+    resources: str
+    expectedSubscribers: str
+    roomType: List[str]
+    studentsMonitors: List[int]
+  }
+  class Reservation {
+    <<candidate DTO • selected fields>>
+    _id: str
+    roomId: str
+    eventId: str
+    courseId: str
+    startAt: datetime
+    endAt: datetime
+    status: str
+  }
+  class Room {
+    <<candidate DTO • selected fields>>
+    _id: str
+    id: int
+    name: str
+    studentCapacity: int
+    buildingId: str
+    roomNumber: int
+    floor: int
+  }
+  class Graduation {
+    <<candidate DTO • selected fields>>
+    _id: str
+    code: str
+    name: str
+    graduation: str
+    departamentId: str
+  }
+  class Type {
+    <<candidate DTO • selected fields>>
+    _id: str
+    collection: str
+    types: List[dict]
+  }
+  Event .. Graduation : graduationId ↔ _id?; mapping and multiplicity unverified
+  Reservation .. Event : eventId ↔ _id?; mapping and multiplicity unverified
+  Reservation .. Room : roomId ↔ _id?; mapping and multiplicity unverified
+  %% No Event–Type edge asserted: the eventTypeId-to-catalog mapping is unresolved.
+  %% Dashed links mark ID-based or proposed mapping only; no cardinalities asserted.

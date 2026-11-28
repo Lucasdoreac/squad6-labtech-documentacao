@@ -1,0 +1,23 @@
+%% Client flow: deployed bundle. Backend note/side path: candidate repo only, deployment identity unverified.
+%% https://labtech.dwcorp.com.br/assets/event-type-selection-DKXtS1Ca.js
+%% https://labtech.dwcorp.com.br/assets/event-schedule-CkH4420g.js
+%% https://labtech.dwcorp.com.br/assets/event-confirm-data-WrwFW2h9.js
+%% Candidate: https://github.com/Lucasdoreac/labtech-reservas/blob/6e8258bf459d0f564ad626e5bc65ce6246d7010a/apps/api/src/SLL/events_routes.py
+flowchart TD
+  start((Início)) --> select[Selecionar categoria/tipo]
+  select --> cond{class ou exam?}
+  cond -->|sim| draftClass[Salvar rascunho; ir direto à agenda]
+  cond -->|não| basic[Informações básicas]
+  basic --> details[Detalhes do evento]
+  details --> logistics[Logística do evento]
+  logistics --> schedule[Escolher dia e horário]
+  draftClass --> schedule
+  schedule --> available[Consultar salas disponíveis<br/>GET /rooms/available-rooms]
+  available --> room[Selecionar sala e gravar roomId + reservationDate]
+  room --> confirm[Revisar / confirmar dados]
+  confirm --> submit[Enviar evento<br/>POST /events/:id/submit]
+  submit -. rota candidata, não backend confirmado .-> api[Repo candidato: status=requested; reserva de 3h; atualiza evento; desfaz reserva nova se a atualização falhar]
+  submit --> success[Navegar para confirmação — caminho feliz]
+  note[Fluxo feliz apenas; sessão/autorização e caminhos de erro/conflito não foram verificados no deployment.] -. limite .-> submit
+  success --> finish((Fim))
+  tz[Requisito: horário de Brasília. Validar semântica implantada.] -. aberto .-> schedule
