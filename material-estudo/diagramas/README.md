@@ -1,6 +1,6 @@
 # LabTech — material de estudo assistido
 
-**Propósito e limite.** Estes três diagramas são um estudo/revisão assistidos por IA, não uma especificação definitiva, não uma declaração de que o candidato de código é o backend implantado e não um trabalho para apresentar como autoria própria. Não publiquei nada nem alterei entregáveis existentes. O diretório de destino não existia antes da criação.
+**Propósito e limite.** Estes três diagramas são um estudo/revisão assistidos por IA, não uma especificação definitiva, não uma declaração de que o candidato de código é o backend implantado e não um trabalho para apresentar como autoria própria. Este material de estudo e seus diagramas foram publicados na página do projeto e integrados ao relatório; permanecem sujeitos à revisão de Lucas e à validação técnica.
 
 ## Diagrama e leitura
 
@@ -35,4 +35,4 @@ Todos os desenhos incluem a marca exigida: “Material de estudo assistido por I
 
 ## Qualidade
 
-SVG e PNG foram renderizados localmente a partir do mesmo desenho; há fonte Mermaid por diagrama. Os arquivos são locais e não foram publicados.
+SVG e PNG foram renderizados a partir do mesmo desenho; há esboço Mermaid por diagrama. Os arquivos estão publicados como material de estudo e não comprovam a implementação.
